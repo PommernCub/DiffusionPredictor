@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 21 22:31:47 2025
-
-@author: 91278
-"""
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -11,18 +5,18 @@ import torch.nn.functional as F
 
 
 class ChannelAttention(nn.Module):
-    def __init__(self, in_channels, reduction=16):  # 增大压缩比
+    def __init__(self, in_channels, reduction=16):
         super().__init__()
         self.gap = nn.AdaptiveAvgPool1d(1)
-        self.gmp = nn.AdaptiveMaxPool1d(1)  # 新增最大池化分支
+        self.gmp = nn.AdaptiveMaxPool1d(1)
         self.fc = nn.Sequential(
             nn.Linear(in_channels, in_channels // reduction),
-            nn.LayerNorm(in_channels // reduction),  # 添加层归一化
+            nn.LayerNorm(in_channels // reduction),
             nn.LeakyReLU(0.1, inplace=True),
             nn.Linear(in_channels // reduction, in_channels),
             nn.Sigmoid()
         )
-        self.conv = nn.Conv1d(2, 1, kernel_size=7, padding=3)  # 空间注意力增强
+        self.conv = nn.Conv1d(2, 1, kernel_size=7, padding=3)
 
     def forward(self, x):
         b, c, _ = x.size()
@@ -30,7 +24,7 @@ class ChannelAttention(nn.Module):
         max_ = self.gmp(x).view(b, c)
         y = self.fc(avg + max_).view(b, c, 1)
         
-        # 增强空间注意力
+        # 空间注意力
         spatial = torch.cat([x.mean(dim=1, keepdim=True), x.max(dim=1, keepdim=True)[0]], dim=1)
         spatial = self.conv(spatial).sigmoid()
         
@@ -89,9 +83,9 @@ class ResidualBlock(nn.Module):
                 nn.Conv1d(in_channels, out_channels, kernel_size=1),
                 nn.BatchNorm1d(out_channels)
             )
-        # 添加时间维度的跳跃连接
+        # 时间维度的跳跃连接
         self.temporal_conv = nn.Conv1d(out_channels, out_channels, 3, padding=1)
-        # 正则化增强
+        # 正则化
         self.drop = nn.Dropout(0.2)
     
     def forward(self, x):
