@@ -281,7 +281,7 @@ def dataprocess(dir_path, input_file):
             "ji_mean": round(ji_mean, 4)
         }
     
-    # 保存包含新增统计量的长度分布
+    # 保存统计量的长度分布
     save_segment_lengths(dir_path, true_dist, predicted_dist, grouped_stats)
     
 
