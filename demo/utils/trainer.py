@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed May 21 16:27:44 2025
-
-@author: 91278
-"""
 import torch
 import torch.nn.functional as F
 from tqdm import tqdm
