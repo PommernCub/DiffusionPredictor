@@ -121,7 +121,7 @@ def Jaccard_index(true_segments, predicted_segments):
         
         union_start = np.minimum(t_start, valid_starts)
         union_end = np.maximum(t_end, valid_ends)
-        union_len = union_end - union_start
+        union_len = union_end - union_start + 1
         
         # 步骤4：批量计算 Jaccard 指数
         ji_values = inter_len / (union_len + 1e-9)  # 防止除零
@@ -287,8 +287,6 @@ def dataprocess(dir_path, input_file):
 
 
 if __name__ == "__main__":
-    SIZE = 30  # 输入文件名中粒子尺寸
-    MODEL = 'cnn'
     dir_path = "results\\exp1"
     input_file = "test-results.csv"
     dataprocess(dir_path, input_file)
