@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri May 23 19:25:05 2025
-
-@author: 91278
-"""
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.lib.stride_tricks import sliding_window_view
