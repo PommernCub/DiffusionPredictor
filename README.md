@@ -15,7 +15,7 @@ Provides a complete workflow demonstration including:
 - Testing procedures (`test.py`)
 - Post-processing scripts (integrated in `test.py`)
 
-The raw data for this demo is located in `simorig0/`. Due to GitHub file count limitations, only 100 trajectory files are included.
+The raw data for this demo is located in `simdata0/`. Due to GitHub file count limitations, only 100 trajectory files are included.
 
 ## Getting Started
 1. Navigate to the `demo/` directory
